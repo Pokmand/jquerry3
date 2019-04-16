@@ -1,31 +1,47 @@
 $(function() {
-  // coordonnées Carré dans écran :
-  var X = $('#square').offset().left;
-  var Y = $('#square').offset().top;
-  console.log(X);
-  console.log(Y);
-  //fonctions de déplacement avec tests si bords atteints :
+  // console.log("X =" + positionX);
+  // console.log("Y =" + positionY);
+  var widthmax = $(window).width();
+  var heightmax = $(window).height();
+  // console.log("widthmax =" + widthmax);
+  // console.log("heightmax =" + heightmax);
+
+  //fonctions de déplacement :
   $('#textref').keydown(function(move) {
-    switch (move.which) {
+    // coordonnées Carré dans écran et taille de l'écran :
+    var positionX = $('#square').offset().left;
+    var positionY = $('#square').offset().top;
+    switch (move.keyCode) {
       case 37: // fleche gauche
-        //$('#square').offset('left', 100);
-        $('#square').css('margin-left', '-=10px');
-        console.log($('#square').offset().left);
+        if (positionX <= 0) {
+          $('#square').css('margin-left', widthmax - 50);
+        } else {
+          $('#square').css('margin-left', '-=10px');
+        }
         break;
+
       case 38: // fleche haut
-        //$('#square').offset(Y, '-=10');
-        $('#square').css('margin-top','-=10px');
-        console.log('haut');
+        if (positionY <= 0) {
+          $('#square').css('margin-top', heightmax - 50);
+        } else {
+          $('#square').css('margin-top', '-=10px');
+        }
         break;
+
       case 39: // fleche droite
-        //$('#square').offset(X, '+=10');
-        $('#square').css('margin-left','+=10px')
-        console.log('droite');
+        if (positionX >= (widthmax - 50)) {
+          $('#square').css('margin-left', '0');
+        } else {
+          $('#square').css('margin-left', '+=10px');
+        }
         break;
+
       case 40: // fleche bas
-        //$('#square').offset(Y, '+=10');
-        $('#square').css('margin-top','+=10px')
-        console.log('bas');
+        if (positionY >= (heightmax - 50)) {
+          $('#square').css('margin-top', '0');
+        } else {
+          $('#square').css('margin-top', '+=10px');
+        }
         break;
       default:
         alert('Veuillez utiliser les flèches');
